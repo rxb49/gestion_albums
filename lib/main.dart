@@ -188,15 +188,15 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
-            icon: Icon(Customicons.home),
+            icon: Icon(Icons.home),
             label: 'Accueil',
           ),
           NavigationDestination(
-            icon: Icon(Customicons.music),
+            icon: Icon(Icons.music_note_sharp),
             label: 'Page suivante',
           ),
           NavigationDestination(
-            icon: Icon(Customicons.settings),
+            icon: Icon(Icons.settings),
             label: 'Paramètres',
           ),
         ],
