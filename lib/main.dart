@@ -69,7 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: const AppBar_Principal(
         title: 'Gestion des albums',
       ),
-      body: Center(
+      body: currentPageIndex == 0
+          ? Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
           ],
         ),
-      ),
+      ): null,
       floatingActionButton: currentPageIndex == 0
           ? FloatingActionButton(
               onPressed: _incrementCounter,
