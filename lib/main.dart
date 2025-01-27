@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gestion_albums/Customicons.dart';
+//import 'package:gestion_albums/Customicons.dart';
 import 'package:gestion_albums/themeController.dart';
 import 'Appbar/appbar.dart';
 import 'package:json_theme/json_theme.dart';
@@ -193,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           NavigationDestination(
             icon: Icon(Icons.music_note_sharp),
-            label: 'Page suivante',
+            label: 'Liste des albums',
           ),
           NavigationDestination(
             icon: Icon(Icons.settings),
