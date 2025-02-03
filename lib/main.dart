@@ -5,6 +5,8 @@ import 'Appbar/appbar.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
+import 'package:gestion_albums/Album.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,108 +72,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: 'Gestion des albums',
       ),
       body: currentPageIndex == 0
-          ? Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Card(
-                shadowColor: Colors.black,
-                color: Color.fromARGB(255, 121, 190, 141),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 200,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Image(
-                          image: AssetImage("img/imgAccueil/vinyltransp.webp"),
-                          width: 100,
-                          height: 100,
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            "Bienvenue sur l'application de gestion d'album",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'News',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'Dernières actualités',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'Version 1 en cours de développement',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'Wait and see',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-
-          ],
-        ),
-      ): null,
+          ? _buildAccueil()
+          : currentPageIndex == 1
+              ? _buildAlbums()
+          : currentPageIndex == 2
+              ? _buildParametres()
+              : null,
       floatingActionButton: currentPageIndex == 0
           ? FloatingActionButton(
               onPressed: _incrementCounter,
@@ -200,6 +106,175 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Paramètres',
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildAccueil() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Card(
+              shadowColor: Colors.black,
+              color: Color.fromARGB(255, 121, 190, 141),
+              child: SizedBox(
+                width: double.infinity,
+                height: 200,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Image(
+                        image: AssetImage("img/imgAccueil/vinyltransp.webp"),
+                        width: 100,
+                        height: 100,
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Bienvenue sur l'application de gestion d'album",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildCard('News', 'Dernières actualités'),
+                const SizedBox(height: 8),
+                _buildCard('Version 1 en cours de développement', 'Wait and see'),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+Widget _buildAlbums() {
+  return Container(
+    color: Colors.blue, // Fond bleu
+    alignment: Alignment.center,
+    child: ListView(
+      shrinkWrap: true,
+      padding: const EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 10.0),
+      children: <Widget>[
+        Album(
+          nomAlbum: "Metallica",
+          description: "L'album marque une évolution importante dans le style du groupe. Les tempos sont plus lents, les morceaux plus courts et leurs structures beaucoup plus simples, aspirant ainsi à du simple rock. C'est principalement un album de heavy metal, et il n'y a plus beaucoup de traces de thrash metal.",
+          nomGroupe: "Metallica",
+          image: "Metallica.jpg",
+        ),
+        Album(
+          nomAlbum: "Andjusticeforall",
+          description: "Premier album de Linkin Park, sorti en 2000. Il a marqué le début du nu-metal avec des influences hip-hop et électroniques.",
+          nomGroupe: "Linkin Park",
+          image: "Andjusticeforall.jpg",
+        ),
+        Album(
+          nomAlbum: "Hardwired",
+          description: "L'album emblématique de Nirvana qui a popularisé le grunge à travers le monde avec des morceaux comme 'Smells Like Teen Spirit'.",
+          nomGroupe: "Nirvana",
+          image: "Hardwired.jpg",
+        ),
+        Album(
+          nomAlbum: "Killemall",
+          description: "L'album emblématique de Nirvana qui a popularisé le grunge à travers le monde avec des morceaux comme 'Smells Like Teen Spirit'.",
+          nomGroupe: "Nirvana",
+          image: "Killemall.jpg",
+        ),
+        Album(
+          nomAlbum: "Masterofpuppets",
+          description: "L'album emblématique de Nirvana qui a popularisé le grunge à travers le monde avec des morceaux comme 'Smells Like Teen Spirit'.",
+          nomGroupe: "Nirvana",
+          image: "Masterofpuppets.jpg",
+        ),
+        Album(
+          nomAlbum: "Ridethelightning",
+          description: "L'album emblématique de Nirvana qui a popularisé le grunge à travers le monde avec des morceaux comme 'Smells Like Teen Spirit'.",
+          nomGroupe: "Nirvana",
+          image: "Ridethelightning.jpg",
+        ),
+      ],
+    ),
+  );
+}
+
+
+  Widget _buildParametres() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Configurer les paramètres de l'application",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          Card(
+            child: ListTile(
+              title: const Text("Paramètre 1"),
+              subtitle: const Text("Work in progress"),
+              leading: const Icon(Icons.settings),
+              onTap: () {
+              },
+            ),
+          ),
+          const SizedBox(height: 8),
+          Card(
+            child: ListTile(
+              title: const Text("Paramètre 2"),
+              subtitle: const Text("Work in progress"),
+              leading: const Icon(Icons.tune),
+              onTap: () {
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCard(String title, String subtitle) {
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                subtitle,
+                style: const TextStyle(fontSize: 14),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
