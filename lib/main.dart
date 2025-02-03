@@ -6,6 +6,10 @@ import 'package:json_theme/json_theme.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:gestion_albums/Album.dart';
+import 'carousel.dart'; // Importation du fichier carousel.dart
+import 'package:carousel_slider/carousel_slider.dart';
+
+
 
 
 Future<void> main() async {
@@ -110,107 +114,156 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildAccueil() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Card(
-              shadowColor: Colors.black,
-              color: Color.fromARGB(255, 121, 190, 141),
-              child: SizedBox(
-                width: double.infinity,
-                height: 200,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
+ Widget _buildAccueil() {
+  final List<String> carouselImages = [
+    "assets/img/Ridethelightning.jpg",
+    "assets/img/Masterofpuppets.jpg",
+    "assets/img/hardwired.jpg",
+    "assets/img/Andjusticeforall.jpg",
+  ];
+
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Card(
+            shadowColor: Colors.black,
+            color: Color.fromARGB(255, 121, 190, 141),
+            child: SizedBox(
+              width: double.infinity,
+              height: 200,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Image(
+                      image: AssetImage("img/imgAccueil/vinyltransp.webp"),
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Image(
-                        image: AssetImage("img/imgAccueil/vinyltransp.webp"),
-                        width: 100,
-                        height: 100,
+                      child: Text(
+                        "Bienvenue sur l'application de gestion d'album",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Bienvenue sur l'application de gestion d'album",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildCard('News', 'Dernières actualités'),
-                const SizedBox(height: 8),
-                _buildCard('Version 1 en cours de développement', 'Wait and see'),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildCard('News', 'Dernières actualités'),
+              const SizedBox(height: 8),
+              _buildCard('Version 1 en cours de développement', 'Wait and see'),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Voici les nouveaux albums ajoutés",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              SizedBox(height: 8),
+              CarouselSlider(
+                items: carouselImages.map((imagePath) {
+                  return Container(
+                    margin: EdgeInsets.all(5.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      image: DecorationImage(
+                        image: AssetImage(imagePath),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                }).toList(),
+                options: CarouselOptions(
+                  height: 180,
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: true,
+                  viewportFraction: 1.0,
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    ),
+  );
+}
 
 Widget _buildAlbums() {
+  final List<Map<String, String>> albumsData = [
+  {
+    "nomAlbum": "Metallica",
+    "description": "L'album marque une évolution importante dans le style du groupe...",
+    "nomGroupe": "Metallica",
+    "image": "Metallica.jpg"
+  },
+  {
+    "nomAlbum": "And justice for all",
+    "description": "Un album iconique avec des riffs complexes et des paroles engagées.",
+    "nomGroupe": "Metallica",
+    "image": "Andjusticeforall.jpg"
+  },
+  {
+    "nomAlbum": "Hardwired",
+    "description": "Un retour aux racines du heavy metal avec des morceaux énergiques.",
+    "nomGroupe": "Metallica",
+    "image": "Hardwired.jpg"
+  },
+  {
+    "nomAlbum": "Kill'em all",
+    "description": "L'album qui a lancé Metallica sur la scène du thrash metal.",
+    "nomGroupe": "Metallica",
+    "image": "Killemall.jpg"
+  },
+  {
+    "nomAlbum": "Master of puppets",
+    "description": "Considéré comme l’un des meilleurs albums de heavy metal de tous les temps.",
+    "nomGroupe": "Metallica",
+    "image": "Masterofpuppets.jpg"
+  },
+  {
+    "nomAlbum": "Ride the lightning",
+    "description": "Un mélange parfait entre rapidité, technique et puissance.",
+    "nomGroupe": "Metallica",
+    "image": "Ridethelightning.jpg"
+  }
+];
   return Container(
-    color: Colors.blue, // Fond bleu
+    color: Colors.blue,
     alignment: Alignment.center,
     child: ListView(
       shrinkWrap: true,
       padding: const EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 10.0),
-      children: <Widget>[
-        Album(
-          nomAlbum: "Metallica",
-          description: "L'album marque une évolution importante dans le style du groupe. Les tempos sont plus lents, les morceaux plus courts et leurs structures beaucoup plus simples, aspirant ainsi à du simple rock. C'est principalement un album de heavy metal, et il n'y a plus beaucoup de traces de thrash metal.",
-          nomGroupe: "Metallica",
-          image: "Metallica.jpg",
-        ),
-        Album(
-          nomAlbum: "Andjusticeforall",
-          description: "Premier album de Linkin Park, sorti en 2000. Il a marqué le début du nu-metal avec des influences hip-hop et électroniques.",
-          nomGroupe: "Linkin Park",
-          image: "Andjusticeforall.jpg",
-        ),
-        Album(
-          nomAlbum: "Hardwired",
-          description: "L'album emblématique de Nirvana qui a popularisé le grunge à travers le monde avec des morceaux comme 'Smells Like Teen Spirit'.",
-          nomGroupe: "Nirvana",
-          image: "Hardwired.jpg",
-        ),
-        Album(
-          nomAlbum: "Killemall",
-          description: "L'album emblématique de Nirvana qui a popularisé le grunge à travers le monde avec des morceaux comme 'Smells Like Teen Spirit'.",
-          nomGroupe: "Nirvana",
-          image: "Killemall.jpg",
-        ),
-        Album(
-          nomAlbum: "Masterofpuppets",
-          description: "L'album emblématique de Nirvana qui a popularisé le grunge à travers le monde avec des morceaux comme 'Smells Like Teen Spirit'.",
-          nomGroupe: "Nirvana",
-          image: "Masterofpuppets.jpg",
-        ),
-        Album(
-          nomAlbum: "Ridethelightning",
-          description: "L'album emblématique de Nirvana qui a popularisé le grunge à travers le monde avec des morceaux comme 'Smells Like Teen Spirit'.",
-          nomGroupe: "Nirvana",
-          image: "Ridethelightning.jpg",
-        ),
-      ],
+      children: albumsData.map((album) {
+        return Album(
+          nomAlbum: album["nomAlbum"],
+          description: album["description"],
+          nomGroupe: album["nomGroupe"],
+          image: album["image"],
+        );
+      }).toList(),
     ),
   );
 }
