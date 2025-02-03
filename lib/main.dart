@@ -162,17 +162,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildCard('News', 'Dernières actualités'),
-              const SizedBox(height: 8),
-              _buildCard('Version 1 en cours de développement', 'Wait and see'),
-            ],
-          ),
-        ),
-        Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,7 +194,18 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-        )
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildCard('News', 'Dernières actualités'),
+              const SizedBox(height: 8),
+              _buildCard('Version 1 en cours de développement', 'Wait and see'),
+            ],
+          ),
+        ),
       ],
     ),
   );
