@@ -6,7 +6,6 @@ import 'package:json_theme/json_theme.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:gestion_albums/Album.dart';
-import 'carousel.dart'; // Importation du fichier carousel.dart
 import 'package:carousel_slider/carousel_slider.dart';
 
 
